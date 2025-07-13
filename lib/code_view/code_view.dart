@@ -5,14 +5,13 @@ import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/github.dart'; // A default theme
 
 class CodeView extends StatelessWidget {
-  final String code;
   final Widget screen;
 
   final Map<String, TextStyle> theme;
 
   final double? fontSize;
 
-  const CodeView({super.key, required this.code, required this.screen, this.theme = githubTheme, this.fontSize = 14.0});
+  const CodeView({super.key, required this.screen, this.theme = githubTheme, this.fontSize = 14.0});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class CodeView extends StatelessWidget {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: HighlightView(
-                              code,
+                              snapshot.data!,
                               language: 'dart',
                               theme: theme,
                               textStyle: TextStyle(fontSize: fontSize, color: theme['root']?.color),
