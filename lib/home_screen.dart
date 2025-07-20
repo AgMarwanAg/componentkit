@@ -4,12 +4,12 @@ class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
   const HomeScreen({super.key});
 
-    @override
+  @override
   Widget build(BuildContext context) {
     // Data for the component buttons
     List<Map<String, dynamic>> _layoutComponents = [
-      {'icon': Icons.layers_outlined, 'label': 'Stack'},
-      {'icon': Icons.view_column_outlined, 'label': 'Column'},
+      {'icon': Icons.layers_outlined, 'label': 'Lec2'},
+      {'icon': Icons.view_column_outlined, 'label': 'Lec3'},
       {'icon': Icons.view_stream_outlined, 'label': 'Row'},
       {'icon': Icons.picture_in_picture_alt_outlined, 'label': 'Positioned'},
       {'icon': Icons.align_vertical_bottom_outlined, 'label': 'Align'},
@@ -25,10 +25,6 @@ class HomeScreen extends StatelessWidget {
       {'icon': Icons.horizontal_rule_outlined, 'label': ''}, // Icon-only button
     ];
 
-    List<Map<String, dynamic>> _listAndGridComponents = [
-      {'icon': Icons.list_alt_outlined, 'label': 'ListView'},
-      {'icon': Icons.grid_view_outlined, 'label': 'GridView'},
-    ];
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA), // Light grey background
       appBar: AppBar(
@@ -49,17 +45,13 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         children: [
           const _SectionHeader(title: 'Layout Components'),
-          _buildComponentGrid(_layoutComponents),
-          const SizedBox(height: 16.0),
-          const _SectionHeader(title: 'List and Grid Components'),
-          _buildComponentGrid(_listAndGridComponents),
-          const SizedBox(height: 24.0),
+          _buildComponentGrid(_layoutComponents, context),
         ],
       ),
     );
   }
 
-  Widget _buildComponentGrid(List<Map<String, dynamic>> components) {
+  Widget _buildComponentGrid(List<Map<String, dynamic>> components, BuildContext context) {
     return Wrap(
       spacing: 12.0,
       runSpacing: 12.0,
@@ -68,8 +60,12 @@ class HomeScreen extends StatelessWidget {
           icon: component['icon'] as IconData,
           label: component['label'] as String,
           onPressed: () {
-            // TODO: Handle button tap
-            print('${component['label']} tapped');
+            if (component['label'] == "Lec2") {
+              Navigator.pushNamed(context, '/lec2');
+            }
+            if (component['label'] == "Lec3") {
+              Navigator.pushNamed(context, '/lec3');
+            }
           },
         );
       }).toList(),
