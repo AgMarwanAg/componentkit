@@ -4,12 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 
 class CodeView extends StatelessWidget {
-  final Widget child;
   final String path;
 
-  final double? fontSize;
+   final Widget child;
 
-  const CodeView({super.key, required this.child, required this.path, this.fontSize = 14.0});
+  const CodeView({super.key, required this.path, required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:componentkit/lec2.dart';
 import 'package:componentkit/lec3.dart';
+import 'package:componentkit/lec4.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,24 +28,24 @@ class HomeScreen extends StatelessWidget {
           children: [
             _ComponentButton(
               icon: Icons.layers_outlined,
-              label: 'Lec2',
+              label: 'Lec2 (basic Widgets)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec2.path);
               },
             ),
             _ComponentButton(
               icon: Icons.view_column_outlined,
-              label: 'Lec3',
+              label: 'Lec3 (Scaffold)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec3.path);
               },
             ),
             _ComponentButton(
               icon: Icons.image,
-              label: 'Lec4',
+              label: 'Lec4 (Images and buttons)',
               onPressed: () {
-                
-               },
+                Navigator.pushNamed(context, Lec4.path);
+              },
             ),
             // _ComponentButton(
             //   icon: Icons.picture_in_picture_alt_outlined,
@@ -186,22 +187,19 @@ class _ComponentButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(icon, color: Colors.black54, size: 22),
-                // Only show text if the label is not empty.
-                if (label.isNotEmpty) ...[
-                  const SizedBox(width: 10.0),
-                  // Use Flexible to prevent text overflow
-                  Flexible(
-                    child: Text(
-                      label,
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Text(
+                    label,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ],
+                ),
               ],
             ),
           ),
