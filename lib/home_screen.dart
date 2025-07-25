@@ -1,3 +1,4 @@
+import 'package:componentkit/lec2.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,14 +31,8 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: const Color(0xFFF8F9FA),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            // TODO: Implement navigation logic
-          },
-        ),
         title: const Text(
-          'Flutter Components',
+          'Flutter Component Kit',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
@@ -61,7 +56,7 @@ class HomeScreen extends StatelessWidget {
           label: component['label'] as String,
           onPressed: () {
             if (component['label'] == "Lec2") {
-              Navigator.pushNamed(context, '/lec2');
+              Navigator.pushNamed(context, Lec2.path);
             }
             if (component['label'] == "Lec3") {
               Navigator.pushNamed(context, '/lec3');

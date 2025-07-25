@@ -1,7 +1,8 @@
+import 'package:componentkit/code_view/code_view.dart';
 import 'package:flutter/material.dart';
 
 class Lec2 extends StatelessWidget {
-  static const String routeName = '/lec2';
+  static const String path = '/lec2';
   const Lec2({super.key});
 
   @override
