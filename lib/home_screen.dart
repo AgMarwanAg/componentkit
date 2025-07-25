@@ -1,4 +1,5 @@
 import 'package:componentkit/lec2.dart';
+import 'package:componentkit/lec3.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,25 +8,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Data for the component buttons
-    List<Map<String, dynamic>> _layoutComponents = [
-      {'icon': Icons.layers_outlined, 'label': 'Lec2'},
-      {'icon': Icons.view_column_outlined, 'label': 'Lec3'},
-      {'icon': Icons.view_stream_outlined, 'label': 'Row'},
-      {'icon': Icons.picture_in_picture_alt_outlined, 'label': 'Positioned'},
-      {'icon': Icons.align_vertical_bottom_outlined, 'label': 'Align'},
-      {'icon': Icons.space_bar_outlined, 'label': 'Spacer'},
-      {'icon': Icons.unfold_more_double_outlined, 'label': 'Expanded'},
-      {'icon': Icons.open_in_full_outlined, 'label': 'Flexible'},
-      {'icon': Icons.center_focus_strong_outlined, 'label': 'Center'},
-      {'icon': Icons.padding_outlined, 'label': 'Padding'},
-      {'icon': Icons.crop_square_outlined, 'label': 'SizedBox'},
-      {'icon': Icons.check_box_outline_blank, 'label': 'Container'},
-      {'icon': Icons.dashboard_outlined, 'label': 'Card'},
-      {'icon': Icons.wrap_text_outlined, 'label': 'Wrap'},
-      {'icon': Icons.horizontal_rule_outlined, 'label': ''}, // Icon-only button
-    ];
-
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA), // Light grey background
       appBar: AppBar(
@@ -36,41 +18,145 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        children: [
-          const _SectionHeader(title: 'Layout Components'),
-          _buildComponentGrid(_layoutComponents, context),
-        ],
+      // Use SingleChildScrollView for a scrollable layout with Wrap
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Wrap(
+          spacing: 12.0, // Horizontal space between buttons
+          runSpacing: 12.0, // Vertical space between button rows
+          children: [
+            _ComponentButton(
+              icon: Icons.layers_outlined,
+              label: 'Lec2',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec2.path);
+              },
+            ),
+            _ComponentButton(
+              icon: Icons.view_column_outlined,
+              label: 'Lec3',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec3.path);
+              },
+            ),
+            _ComponentButton(
+              icon: Icons.image,
+              label: 'Lec4',
+              onPressed: () {
+                
+               },
+            ),
+            // _ComponentButton(
+            //   icon: Icons.picture_in_picture_alt_outlined,
+            //   label: 'Positioned',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Positioned'
+            //     debugPrint('Positioned button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.align_vertical_bottom_outlined,
+            //   label: 'Align',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Align'
+            //     debugPrint('Align button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.space_bar_outlined,
+            //   label: 'Spacer',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Spacer'
+            //     debugPrint('Spacer button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.unfold_more_double_outlined,
+            //   label: 'Expanded',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Expanded'
+            //     debugPrint('Expanded button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.open_in_full_outlined,
+            //   label: 'Flexible',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Flexible'
+            //     debugPrint('Flexible button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.center_focus_strong_outlined,
+            //   label: 'Center',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Center'
+            //     debugPrint('Center button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.padding_outlined,
+            //   label: 'Padding',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Padding'
+            //     debugPrint('Padding button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.crop_square_outlined,
+            //   label: 'SizedBox',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'SizedBox'
+            //     debugPrint('SizedBox button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.check_box_outline_blank,
+            //   label: 'Container',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Container'
+            //     debugPrint('Container button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.dashboard_outlined,
+            //   label: 'Card',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Card'
+            //     debugPrint('Card button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.wrap_text_outlined,
+            //   label: 'Wrap',
+            //   onPressed: () {
+            //     // TODO: Implement navigation for 'Wrap'
+            //     debugPrint('Wrap button pressed');
+            //   },
+            // ),
+            // _ComponentButton(
+            //   icon: Icons.horizontal_rule_outlined,
+            //   label: '', // Icon-only button
+            //   onPressed: () {
+            //     // TODO: Implement action for this button
+            //     debugPrint('Icon-only button pressed');
+            //   },
+            // ),
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget _buildComponentGrid(List<Map<String, dynamic>> components, BuildContext context) {
-    return Wrap(
-      spacing: 12.0,
-      runSpacing: 12.0,
-      children: components.map((component) {
-        return _ComponentButton(
-          icon: component['icon'] as IconData,
-          label: component['label'] as String,
-          onPressed: () {
-            if (component['label'] == "Lec2") {
-              Navigator.pushNamed(context, Lec2.path);
-            }
-            if (component['label'] == "Lec3") {
-              Navigator.pushNamed(context, '/lec3');
-            }
-          },
-        );
-      }).toList(),
     );
   }
 }
 
 /// A reusable button widget for displaying a component with an icon and a label.
+/// This widget remains unchanged as it is a well-encapsulated component.
 class _ComponentButton extends StatelessWidget {
-  const _ComponentButton({required this.icon, required this.label, this.onPressed});
+  const _ComponentButton({
+    required this.icon,
+    required this.label,
+    this.onPressed,
+  });
 
   final IconData icon;
   final String label;
@@ -82,7 +168,9 @@ class _ComponentButton extends StatelessWidget {
     // It will take up half of the available width minus the spacing.
     return LayoutBuilder(
       builder: (context, constraints) {
-        final buttonWidth = (constraints.maxWidth / 2) - 6; // Subtract half the Wrap spacing
+        // Calculate width for a two-column layout.
+        // Subtract half the Wrap spacing (12.0 / 2 = 6.0) to ensure perfect alignment.
+        final buttonWidth = (constraints.maxWidth / 2) - 6.0;
 
         return SizedBox(
           width: buttonWidth,
@@ -101,9 +189,17 @@ class _ComponentButton extends StatelessWidget {
                 // Only show text if the label is not empty.
                 if (label.isNotEmpty) ...[
                   const SizedBox(width: 10.0),
-                  Text(
-                    label,
-                    style: const TextStyle(color: Colors.black87, fontSize: 15, fontWeight: FontWeight.w500),
+                  // Use Flexible to prevent text overflow
+                  Flexible(
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        color: Colors.black87,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ],
@@ -111,24 +207,6 @@ class _ComponentButton extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-/// A reusable header widget for different sections of the UI.
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 24.0, bottom: 16.0),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
-      ),
     );
   }
 }
