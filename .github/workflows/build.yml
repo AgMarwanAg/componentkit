@@ -1,91 +1,57 @@
-# A name for the workflow, which will be displayed in the Actions tab of the GitHub repository.
 name: Build App [dev]
 
-# This section defines the triggers for the workflow.
 on:
   push:
-    # Triggers the workflow on pushes to tags that match the pattern 'v*-dev*'.
-    # For example, v1.0.0-dev, v2.1.3-dev.
     tags:
       - "v*-dev*"
-    # Triggers the workflow on pushes to the 'master' branch.
     branches:
       - master
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel.
 jobs:
   build:
-    # The name of the job, which is displayed on GitHub.
     name: Build and Release APK
-    # The type of runner that the job will run on. 'ubuntu-latest' is a GitHub-hosted runner.
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
-      # Step 1: Check out the repository's code.
-      # This action checks-out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up the Java environment.
-      # Flutter requires a specific Java version to build Android apps.
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: "zulu"
           java-version: "17"
 
-      # Step 3: Set up the Flutter SDK.
-      # This action downloads and sets up a specific version of the Flutter SDK.
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          # Using a recent stable version of Flutter.
-          flutter-version: "3.32.5" 
+          flutter-version: "3.32.5"
           channel: "stable"
-          # Enables caching to speed up subsequent builds.
           cache: true
 
-      # Step 4: Install Flutter project dependencies.
-      # This command gets all the packages listed in the pubspec.yaml file.
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 5: Build the Android APK.
-      # '--split-per-abi' creates a smaller APK for each target architecture.
-      # '--no-shrink' disables code shrinking with R8, which can sometimes be useful for dev builds.
       - name: Build APK
-        run: flutter build apk --split-per-abi --no-shrink
+        run: flutter build apk
 
-      # Step 6: Create a GitHub Release for pushes to tags.
-      # This step only runs if the workflow was triggered by a tag push.
       - name: Create Release for Tag
         if: startsWith(github.ref, 'refs/tags/')
         uses: ncipollo/release-action@v1
         with:
-          # The artifact (the built APK) to upload to the release.
-          artifacts: build/app/outputs/apk/release/app-arm64-v8a-release.apk
-          # Use the name of the tag that triggered the workflow (e.g., 'v1.0.0-dev').
+          artifacts: build/app/outputs/apk/release/app-release.apk
           tag: ${{ github.ref_name }}
-          # The name of the release will be 'Release <tag_name>'.
           name: Release ${{ github.ref_name }}
-          # Mark this as a pre-release since it's a dev build.
-          prerelease: trueTOKEN
-          # Use the built-in TOKEN for authentication.
+          prerelease: true
           token: ${{ secrets.TOKEN }}
 
-      # Step 7: Update a 'latest-dev' release for pushes to the master branch.
-      # This step only runs if the workflow was triggered by a push to 'master'.
       - name: Update Latest Dev Release
         if: github.ref == 'refs/heads/master'
         uses: ncipollo/release-action@v1
         with:
-          artifacts: build/app/outputs/apk/release/app-arm64-v8a-release.apk
-          # This creates or updates a release with the static tag 'latest-dev'.
+          artifacts: build/app/outputs/apk/release/app-release.apk
           tag: 'latest-dev'
           name: 'Latest Development Build (master)'
-          # Allows this action to update the assets of an existing release.
           allowUpdates: true
-          # Mark as a pre-release.
           prerelease: true
           token: ${{ secrets.TOKEN }}
