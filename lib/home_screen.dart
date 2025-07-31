@@ -1,6 +1,7 @@
 import 'package:componentkit/lec2.dart';
 import 'package:componentkit/lec3.dart';
 import 'package:componentkit/lec4.dart';
+import 'package:componentkit/lec5.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -47,14 +48,13 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, Lec4.path);
               },
             ),
-            // _ComponentButton(
-            //   icon: Icons.picture_in_picture_alt_outlined,
-            //   label: 'Positioned',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Positioned'
-            //     debugPrint('Positioned button pressed');
-            //   },
-            // ),
+            _ComponentButton(
+              icon: Icons.refresh,
+              label: 'Lec 5 (State Management)',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec5.path);
+              },
+            ),
             // _ComponentButton(
             //   icon: Icons.align_vertical_bottom_outlined,
             //   label: 'Align',
