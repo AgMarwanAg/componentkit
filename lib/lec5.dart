@@ -22,7 +22,8 @@ class _Lec5State extends State<Lec5> {
   bool obSecurePassord = true;
   TextEditingController userCTR = TextEditingController();
   TextEditingController passwordCTR = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool checkboxValue = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +52,6 @@ class _Lec5State extends State<Lec5> {
                     height = 200;
                   });
                 },
-                
                 child: const Text('Change Size'),
               ),
               TextFormField(
@@ -90,6 +90,7 @@ class _Lec5State extends State<Lec5> {
               TextFormField(
                 controller: passwordCTR,
                 obscureText: obSecurePassord,
+                
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your password';
@@ -102,6 +103,7 @@ class _Lec5State extends State<Lec5> {
                 decoration: InputDecoration(
                   labelText: 'passowrd',
                   prefixIcon: Icon(Icons.password),
+                  
                   suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
@@ -126,10 +128,17 @@ class _Lec5State extends State<Lec5> {
               ),
               Text('User Name ${userCTR.text}'),
               Text('Password ${passwordCTR.text}'),
+              Checkbox(
+                  value: checkboxValue,
+                  onChanged: (val) {
+                    checkboxValue = val!;
+                    setState(() {});
+                  }),
               ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       setState(() {});
+                       
                     }
                   },
                   child: Text('Login'))

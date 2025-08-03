@@ -2,6 +2,7 @@ import 'package:componentkit/lec2.dart';
 import 'package:componentkit/lec3.dart';
 import 'package:componentkit/lec4.dart';
 import 'package:componentkit/lec5.dart';
+import 'package:componentkit/lec5part2.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -50,9 +51,16 @@ class HomeScreen extends StatelessWidget {
             ),
             _ComponentButton(
               icon: Icons.refresh,
-              label: 'Lec 5 (State Management)',
+              label: 'Lec 5 (StateFul Widgets)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec5.path);
+              },
+            ),
+            _ComponentButton(
+              icon: Icons.refresh,
+              label: 'Lec 5 (state Management)',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec5part2.path);
               },
             ),
             // _ComponentButton(

@@ -5,10 +5,10 @@ import 'package:flutter_highlight/flutter_highlight.dart';
 
 class CodeView extends StatelessWidget {
   final String path;
-
+  final String? loadPath;
    final Widget child;
 
-  const CodeView({super.key, required this.path, required this.child});
+  const CodeView({super.key, required this.path, this.loadPath, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class CodeView extends StatelessWidget {
                   children: [
                     child,
                     FutureBuilder(
-                      future: rootBundle.loadString('lib$path.dart'),
+                      future: rootBundle.loadString(loadPath?? 'lib$path.dart'),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return const Center(child: CircularProgressIndicator());

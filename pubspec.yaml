@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_highlight:
- 
+  get: ^4.7.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
