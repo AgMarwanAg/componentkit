@@ -51,14 +51,14 @@ class HomeScreen extends StatelessWidget {
             ),
             _ComponentButton(
               icon: Icons.refresh,
-              label: 'Lec 5 (StateFul Widgets)',
+              label: 'Lec 5 part1 (StateFul Widgets)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec5.path);
               },
             ),
             _ComponentButton(
               icon: Icons.refresh,
-              label: 'Lec 5 (state Management)',
+              label: 'Lec 5 part2(state Management)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec5part2.path);
               },

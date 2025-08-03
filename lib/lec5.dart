@@ -27,50 +27,92 @@ class _Lec5State extends State<Lec5> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              SizedBox(height: 50),
-              Container(
-                width: width,
-                height: height,
-                color: Colors.red,
-                child: const Center(
-                  child: Text(
-                    'Hello',
-                    style: TextStyle(color: Colors.white),
+      body: Form(
+        key: formKey,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 50),
+                Container(
+                  width: width,
+                  height: height,
+                  color: Colors.red,
+                  child: const Center(
+                    child: Text(
+                      'Hello',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 50),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    width = MediaQuery.of(context).size.width;
-                    height = 200;
-                  });
-                },
-                child: const Text('Change Size'),
-              ),
-              TextFormField(
-                controller: userCTR,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                    labelText: 'Username',
-                    hintText: 'e.g., Marwan',
-                    prefixIcon: Icon(Icons.person),
+                SizedBox(height: 50),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      width = MediaQuery.of(context).size.width;
+                      height = 200;
+                    });
+                  },
+                  child: const Text('Change Size'),
+                ),
+                TextFormField(
+                  controller: userCTR,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                      labelText: 'Username',
+                      hintText: 'e.g., Marwan',
+                      prefixIcon: Icon(Icons.person),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                          },
+                          icon: Icon(Icons.close)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        borderSide: BorderSide(color: Colors.black, width: 2.0),
+                      ),
+                      // focusedBorder: OutlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                      //   borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      // ),
+                      errorBorder: InputBorder.none),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: passwordCTR,
+                  obscureText: obSecurePassord,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    if (value.length < 8) {
+                      return 'Password must be at least 8 characters';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'passowrd',
+                    prefixIcon: Icon(Icons.password),
                     suffixIcon: IconButton(
                         onPressed: () {
-                          FocusScope.of(context).unfocus();
+                          setState(() {
+                            // if (obSecurePassord == true) {
+                            //   obSecurePassord = false;
+                            // } else {
+                            //   obSecurePassord = true;
+                            // }
+                            obSecurePassord = !obSecurePassord;
+                          });
                         },
-                        icon: Icon(Icons.close)),
+                        icon: Icon(obSecurePassord ? Icons.visibility_off : Icons.visibility)),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
@@ -80,69 +122,28 @@ class _Lec5State extends State<Lec5> {
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                    )),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                controller: passwordCTR,
-                obscureText: obSecurePassord,
-                
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  if (value.length < 8) {
-                    return 'Password must be at least 8 characters';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  labelText: 'passowrd',
-                  prefixIcon: Icon(Icons.password),
-                  
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          // if (obSecurePassord == true) {
-                          //   obSecurePassord = false;
-                          // } else {
-                          //   obSecurePassord = true;
-                          // }
-                          obSecurePassord = !obSecurePassord;
-                        });
-                      },
-                      icon: Icon(obSecurePassord ? Icons.visibility_off : Icons.visibility)),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      borderSide: BorderSide(color: Colors.red, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    ),
                   ),
                 ),
-              ),
-              Text('User Name ${userCTR.text}'),
-              Text('Password ${passwordCTR.text}'),
-              Checkbox(
-                  value: checkboxValue,
-                  onChanged: (val) {
-                    checkboxValue = val!;
-                    setState(() {});
-                  }),
-              ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
+                Text('User Name ${userCTR.text}'),
+                Text('Password ${passwordCTR.text}'),
+                Checkbox(
+                    value: checkboxValue,
+                    onChanged: (val) {
+                      checkboxValue = val!;
                       setState(() {});
-                       
-                    }
-                  },
-                  child: Text('Login'))
-            ],
+                    }),
+                ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        setState(() {});
+                      }
+                    },
+                    child: Text('Login'))
+              ],
+            ),
           ),
         ),
       ),
