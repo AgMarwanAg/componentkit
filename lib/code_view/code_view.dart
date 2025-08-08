@@ -6,7 +6,7 @@ import 'package:flutter_highlight/flutter_highlight.dart';
 class CodeView extends StatelessWidget {
   final String path;
   final String? loadPath;
-   final Widget child;
+  final Widget child;
 
   const CodeView({super.key, required this.path, this.loadPath, required this.child});
 
@@ -32,7 +32,7 @@ class CodeView extends StatelessWidget {
                   children: [
                     child,
                     FutureBuilder(
-                      future: rootBundle.loadString(loadPath?? 'lib$path.dart'),
+                      future: rootBundle.loadString(loadPath ?? 'lib$path.dart'),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return const Center(child: CircularProgressIndicator());
@@ -41,13 +41,16 @@ class CodeView extends StatelessWidget {
                           return Center(child: Text(snapshot.error.toString()));
                         }
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return SingleChildScrollView(
+                          return Padding(
+                            padding: const EdgeInsets.all(12),
                             child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: HighlightView(
-                                snapshot.data!,
-                                language: 'dart',
-                                theme: githubTheme,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: HighlightView(
+                                  snapshot.data!,
+                                  language: 'dart',
+                                  theme: githubTheme,
+                                ),
                               ),
                             ),
                           );

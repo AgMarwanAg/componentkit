@@ -3,6 +3,7 @@ import 'package:componentkit/lec3.dart';
 import 'package:componentkit/lec4.dart';
 import 'package:componentkit/lec5.dart';
 import 'package:componentkit/lec5part2.dart';
+import 'package:componentkit/lec6.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -61,6 +62,13 @@ class HomeScreen extends StatelessWidget {
               label: 'Lec 5 part2(state Management)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec5part2.path);
+              },
+            ),
+            _ComponentButton(
+              icon: Icons.add_comment,
+              label: 'Lec 6 Whatsapp Clone',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec6.path);
               },
             ),
             // _ComponentButton(
