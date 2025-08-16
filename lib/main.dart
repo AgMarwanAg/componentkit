@@ -6,6 +6,7 @@ import 'package:componentkit/lec4.dart';
 import 'package:componentkit/lec5.dart';
 import 'package:componentkit/lec5part2.dart';
 import 'package:componentkit/lec6.dart';
+import 'package:componentkit/lec7.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,7 @@ void main() {
         Lec5.path: (context) => CodeView(path: Lec5.path, child: Lec5()),
         Lec5part2.path: (context) => CodeView(path: Lec5part2.path,loadPath: 'lib/lec5part2.dart', child: Lec5part2(),),
         Lec6.path: (context) => CodeView(path: Lec6.path, child: Lec6()),
+        Lec7.path: (context) => CodeView(path: Lec6.path, child: Lec7()),
         // Test.routeName: (context) => Test(),
       },
     ),

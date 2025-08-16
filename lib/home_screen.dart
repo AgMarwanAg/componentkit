@@ -4,6 +4,7 @@ import 'package:componentkit/lec4.dart';
 import 'package:componentkit/lec5.dart';
 import 'package:componentkit/lec5part2.dart';
 import 'package:componentkit/lec6.dart';
+import 'package:componentkit/lec7.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -71,94 +72,13 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, Lec6.path);
               },
             ),
-            // _ComponentButton(
-            //   icon: Icons.align_vertical_bottom_outlined,
-            //   label: 'Align',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Align'
-            //     debugPrint('Align button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.space_bar_outlined,
-            //   label: 'Spacer',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Spacer'
-            //     debugPrint('Spacer button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.unfold_more_double_outlined,
-            //   label: 'Expanded',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Expanded'
-            //     debugPrint('Expanded button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.open_in_full_outlined,
-            //   label: 'Flexible',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Flexible'
-            //     debugPrint('Flexible button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.center_focus_strong_outlined,
-            //   label: 'Center',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Center'
-            //     debugPrint('Center button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.padding_outlined,
-            //   label: 'Padding',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Padding'
-            //     debugPrint('Padding button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.crop_square_outlined,
-            //   label: 'SizedBox',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'SizedBox'
-            //     debugPrint('SizedBox button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.check_box_outline_blank,
-            //   label: 'Container',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Container'
-            //     debugPrint('Container button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.dashboard_outlined,
-            //   label: 'Card',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Card'
-            //     debugPrint('Card button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.wrap_text_outlined,
-            //   label: 'Wrap',
-            //   onPressed: () {
-            //     // TODO: Implement navigation for 'Wrap'
-            //     debugPrint('Wrap button pressed');
-            //   },
-            // ),
-            // _ComponentButton(
-            //   icon: Icons.horizontal_rule_outlined,
-            //   label: '', // Icon-only button
-            //   onPressed: () {
-            //     // TODO: Implement action for this button
-            //     debugPrint('Icon-only button pressed');
-            //   },
-            // ),
+            _ComponentButton(
+              icon: Icons.storage_rounded,
+              label: 'Lec 7 (Database)',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec7.path);
+              },
+            ),
           ],
         ),
       ),
