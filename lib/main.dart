@@ -22,7 +22,7 @@ void main() {
         Lec5.path: (context) => CodeView(path: Lec5.path, child: Lec5()),
         Lec5part2.path: (context) => CodeView(path: Lec5part2.path,loadPath: 'lib/lec5part2.dart', child: Lec5part2(),),
         Lec6.path: (context) => CodeView(path: Lec6.path, child: Lec6()),
-        Lec7.path: (context) => CodeView(path: Lec6.path, child: Lec7()),
+        Lec7.path: (context) => CodeView(path: Lec7.path, child: Lec7()),
         // Test.routeName: (context) => Test(),
       },
     ),
