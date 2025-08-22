@@ -31,7 +31,7 @@ void main() async {
             ),
         Lec6.path: (context) => CodeView(path: Lec6.path, child: Lec6()),
         Lec7.path: (context) => CodeView(path: Lec7.path, child: Lec7()),
-        Lec8.path: (context) => CodeView(path: Lec7.path, child: Lec8()),
+        Lec8.path: (context) => CodeView(path: Lec8.path, child: Lec8()),
         // Test.routeName: (context) => Test(),
       },
     ),
