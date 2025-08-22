@@ -5,6 +5,7 @@ import 'package:componentkit/lec5.dart';
 import 'package:componentkit/lec5part2.dart';
 import 'package:componentkit/lec6.dart';
 import 'package:componentkit/lec7.dart';
+import 'package:componentkit/lec8.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -77,6 +78,13 @@ class HomeScreen extends StatelessWidget {
               label: 'Lec 7 (Database)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec7.path);
+              },
+            ),
+             _ComponentButton(
+              icon: Icons.storage_rounded,
+              label: 'Lec 8 (Caching)',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec8.path);
               },
             ),
           ],
