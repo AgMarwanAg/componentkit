@@ -67,7 +67,6 @@ class PrefsHelper {
     prefs = await SharedPreferences.getInstance();
   }
 
-  // 🔹 Now getters are synchronous
   static String? getString(String key) {
     return prefs.getString(key);
   }
