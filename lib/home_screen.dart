@@ -7,6 +7,7 @@ import 'package:componentkit/lec6.dart';
 import 'package:componentkit/lec7.dart';
 import 'package:componentkit/lec8.dart';
 import 'package:componentkit/lec8part2.dart';
+import 'package:componentkit/lec9.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,65 +35,72 @@ class HomeScreen extends StatelessWidget {
           children: [
             _ComponentButton(
               icon: Icons.layers_outlined,
-              label: 'Lec2 (basic Widgets)',
+              label: 'basic Widgets',
               onPressed: () {
                 Navigator.pushNamed(context, Lec2.path);
               },
             ),
             _ComponentButton(
               icon: Icons.view_column_outlined,
-              label: 'Lec3 (Scaffold)',
+              label: 'Scaffold',
               onPressed: () {
                 Navigator.pushNamed(context, Lec3.path);
               },
             ),
             _ComponentButton(
               icon: Icons.image,
-              label: 'Lec4 (Images and buttons)',
+              label: 'Images and buttons',
               onPressed: () {
                 Navigator.pushNamed(context, Lec4.path);
               },
             ),
             _ComponentButton(
               icon: Icons.refresh,
-              label: 'Lec 5 part1 (StateFul Widgets)',
+              label: 'StateFul Widgets',
               onPressed: () {
                 Navigator.pushNamed(context, Lec5.path);
               },
             ),
             _ComponentButton(
               icon: Icons.refresh,
-              label: 'Lec 5 part2(state Management)',
+              label: 'state Management',
               onPressed: () {
                 Navigator.pushNamed(context, Lec5part2.path);
               },
             ),
             _ComponentButton(
               icon: Icons.add_comment,
-              label: 'Lec 6 Whatsapp Clone',
+              label: 'Whatsapp Clone',
               onPressed: () {
                 Navigator.pushNamed(context, Lec6.path);
               },
             ),
             _ComponentButton(
               icon: Icons.storage_rounded,
-              label: 'Lec 7 (Database)',
+              label: 'Database',
               onPressed: () {
                 Navigator.pushNamed(context, Lec7.path);
               },
             ),
              _ComponentButton(
               icon: Icons.storage_rounded,
-              label: 'Lec 8 (Caching)',
+              label: 'Caching',
               onPressed: () {
                 Navigator.pushNamed(context, Lec8.path);
               },
             ),
              _ComponentButton(
               icon: Icons.refresh,
-              label: 'Lec 8 part2(APIs)',
+              label: '(APIs)',
               onPressed: () {
                 Navigator.pushNamed(context, Lec8part2.path);
+              },
+            ),
+             _ComponentButton(
+              icon: Icons.refresh,
+              label: '(APIs 2)',
+              onPressed: () {
+                Navigator.pushNamed(context, Lec9.path);
               },
             ),
           ],

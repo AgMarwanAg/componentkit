@@ -8,6 +8,7 @@ import 'package:componentkit/lec5part2.dart';
 import 'package:componentkit/lec6.dart';
 import 'package:componentkit/lec7.dart';
 import 'package:componentkit/lec8.dart';
+import 'package:componentkit/lec9.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,8 +40,8 @@ void main() async {
               loadPath: 'lib/lec8part2.dart',
               child: Lec8part2(),
             ),
-        // Test.routeName: (context) => Test(),
-      },
+        Lec9.path: (context) => CodeView(path: Lec9.path, child: Lec9()),
+       },
     ),
   );
 }
