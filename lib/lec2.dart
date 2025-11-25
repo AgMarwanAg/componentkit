@@ -32,7 +32,15 @@ class Lec2 extends StatelessWidget {
             children: [
               const Text(
                 'Welcome to the Widget Explorer!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.indigo, letterSpacing: 1.2, decoration: TextDecoration.underline),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo,
+                    letterSpacing: 1.2,
+                    decoration: TextDecoration.underline,
+                    // backgroundColor: Colors.blueAccent,
+                    decorationStyle: TextDecorationStyle.dotted,
+                    shadows: [Shadow(color: Colors.red, offset: Offset(2.0, 2.0), blurRadius: 10)]),
               ),
               const SizedBox(height: 20),
               const Text('6. Container:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
@@ -49,45 +57,49 @@ class Lec2 extends StatelessWidget {
                 child: const Text("This is a styled Container."),
               ),
               const SizedBox(height: 20),
-              const Text('7. Row, Expanded, Flexible & Spacer:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.blue,
-                      height: 100,
-                      child: const Center(child: Text('Expanded')),
+              // ---------------- Expanded Example ----------------
+              Container(
+                color: Colors.grey.shade200,
+                padding: const EdgeInsets.all(8),
+                child: const Text("Expanded: Forces widget to fill remaining space", style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(
+                height: 120,
+                child: Row(
+                  children: [
+                    Container(width: 80, color: Colors.red),
+                    Expanded(
+                      child: Container(
+                        color: Colors.blue,
+                        child: Text('this is expanded widget', style: TextStyle(fontSize: 20)),
+                      ),
                     ),
-                  ),
-                  Container(
-                    color: Colors.grey,
-                    width: 100,
-                    height: 100,
-                    child: const Center(child: Text('Fixed 100px')),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.all(8),
-                child: Text('Using Flexible with fit: FlexFit.loose:', style: TextStyle(fontWeight: FontWeight.bold)),
+
+              const SizedBox(height: 24),
+
+              // ---------------- Flexible Example ----------------
+              Container(
+                color: Colors.grey.shade200,
+                padding: const EdgeInsets.all(8),
+                child: const Text("Flexible: Lets widget grow but keeps natural size if possible", style: TextStyle(fontWeight: FontWeight.bold)),
               ),
-              Row(
-                children: [
-                  Container(
-                    width: 150, // Preferred width
-                    color: Colors.orange,
-                    height: 100,
-                    child: const Center(child: Text('Flexible 150px')),
-                  ),
-                  Container(
-                    color: Colors.grey,
-                    width: 100,
-                    height: 100,
-                    child: const Center(child: Text('Fixed 100px')),
-                  ),
-                ],
+
+              SizedBox(
+                height: 120,
+                child: Row(
+                  children: [
+                    Container(width: 80, color: Colors.green),
+                    Flexible(
+                      child: Container(
+                        color: Colors.orange,
+                        child: Text('this is long text to test flexible widget and shows the text in multiple lines', style: TextStyle(fontSize: 20)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const Text('8. Stack, Positioned & Align:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
