@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Lec4 extends StatelessWidget {
   static const path = '/lec4';
@@ -64,10 +65,21 @@ class Lec4 extends StatelessWidget {
                   Text('Click here'),
                 ],
               )),
-          ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.add), label: Text('data')),
+          ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              label: Text('data')),
           OutlinedButton(onPressed: () {}, child: Text('Outlined Button')),
           TextButton(onPressed: () {}, child: Text('Text Button')),
-          IconButton(onPressed: () {}, icon: Icon(Icons.ads_click)),
+          IconButton(
+              onPressed: () async {
+                LocationPermission result =
+                    await Geolocator.requestPermission();
+                if (result == LocationPermission.whileInUse) {
+                  print(await Geolocator.getCurrentPosition());
+                }
+              },
+              icon: Icon(Icons.location_on)),
           GestureDetector(
             onTap: () {
               print('GestureDetector tapped');
