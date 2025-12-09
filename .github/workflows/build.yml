@@ -2,10 +2,9 @@ name: Build App [dev]
 
 on:
   push:
-    tags:
-      - "v*-dev*"
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build:
