@@ -1,74 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Lec7 extends StatelessWidget {
-    static const String path = '/lec7';
+  static const String path = '/lec7';
 
   const Lec7({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeworkController());
+    return ChangeNotifierProvider(
+      create: (context) => HomeworkProvider(),
+      builder: (context, child) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Homeworks', style: TextStyle(fontWeight: FontWeight.bold)),
+          centerTitle: true,
+        ),
+        body: Consumer<HomeworkProvider>(
+          builder: (context, controller,child)  {
+            if (controller.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Homeworks', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-      ),
-      body: GetBuilder<HomeworkController>(
-        builder: (controller) {
-          if (controller.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (controller.homeworks.isEmpty) {
-            return const Center(
-              child: Text('No homeworks yet. Add one!', style: TextStyle(fontSize: 18, color: Colors.grey)),
-            );
-          }
-
-          return ListView.builder(
-            padding: const EdgeInsets.all(8.0),
-            itemCount: controller.homeworks.length,
-            itemBuilder: (context, index) {
-              final homework = controller.homeworks[index];
-              return Card(
-                elevation: 4,
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                  title: Text(homework.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const SizedBox(height: 4), Text(homework.description), const SizedBox(height: 8)]),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit, color: Colors.amber),
-                        onPressed: () => _showHomeworkDialog(context, homework: homework),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.redAccent),
-                        onPressed: () => controller.deleteHomework(homework.id!),
-                      ),
-                    ],
-                  ),
-                ),
+            if (controller.homeworks.isEmpty) {
+              return const Center(
+                child: Text('No homeworks yet. Add one!', style: TextStyle(fontSize: 18, color: Colors.grey)),
               );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-         onPressed: () => _showHomeworkDialog(context),
-        tooltip: 'Add Homework',
-        child: const Icon(Icons.add),
+            }
+
+            return ListView.builder(
+              padding: const EdgeInsets.all(8.0),
+              itemCount: controller.homeworks.length,
+              itemBuilder: (context, index) {
+                final homework = controller.homeworks[index];
+                return Card(
+                  elevation: 4,
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                    title: Text(homework.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const SizedBox(height: 4), Text(homework.description), const SizedBox(height: 8)]),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.amber),
+                          onPressed: () => _showHomeworkDialog(context, homework: homework),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.redAccent),
+                          onPressed: () => controller.deleteHomework(homework.id!),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _showHomeworkDialog(context),
+          tooltip: 'Add Homework',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
 
-   void _showHomeworkDialog(BuildContext context, {HomeWork? homework}) {
+  void _showHomeworkDialog(BuildContext context, {HomeWork? homework}) {
     final titleController = TextEditingController(text: homework?.title ?? '');
     final descriptionController = TextEditingController(text: homework?.description ?? '');
     final formKey = GlobalKey<FormState>();
@@ -107,14 +108,13 @@ class Lec7 extends StatelessWidget {
                     title: titleController.text,
                     description: descriptionController.text,
                   );
-
-                  if (homework == null) {
-                    Get.find<HomeworkController>()
-                    .addHomework(newHomework);
-                  } else {
-                    Get.find<HomeworkController>().updateHomework(newHomework);
-                  }
-                 Navigator.pop(context);
+//TODO
+                  // if (homework == null) {
+                  //   controller.addHomework(newHomework);
+                  // } else {
+                  //   controller.updateHomework(newHomework);
+                  // }
+                  Navigator.pop(context);
                 }
               },
               child: const Text('Save'),
@@ -150,11 +150,10 @@ class DBHelper {
     ''');
   }
 
- 
-   Future<int> insertHomeWork(HomeWork homeWork) async {
+  Future<int> insertHomeWork(HomeWork homeWork) async {
     final db = await getDatabase();
     // rawInsert('INSERT INTO HomeWorks(title, description) VALUES(?, ?)', [homeWork.title, homeWork.description]);
-     return await db.insert('HomeWorks', homeWork.toMap());
+    return await db.insert('HomeWorks', homeWork.toMap());
   }
 
   Future<List<HomeWork>> getHomeWorks() async {
@@ -177,28 +176,27 @@ class DBHelper {
     // rawDelete('DELETE FROM HomeWorks WHERE id = ?', [id]);
     return await db.delete('HomeWorks', where: 'id = ?', whereArgs: [id]);
   }
- 
 }
-class HomeworkController extends GetxController {
+
+class HomeworkProvider extends ChangeNotifier {
   final DBHelper _dbHelper = DBHelper();
 
-  List<HomeWork> homeworks = [];
-  bool isLoading = true;
+  List<HomeWork> _homeworks = [];
+  bool _isLoading = false;
 
-  @override
-  void onInit() {
-    super.onInit();
+  List<HomeWork> get homeworks => _homeworks;
+  bool get isLoading => _isLoading;
+
+  HomeworkProvider() {
     fetchHomeworks();
   }
 
   Future<void> fetchHomeworks() async {
-    isLoading = true;
-    update();  
+    _setLoading(true);
 
-    homeworks = await _dbHelper.getHomeWorks();
-    
-    isLoading = false;
-    update();
+    _homeworks = await _dbHelper.getHomeWorks();
+
+    _setLoading(false);
   }
 
   Future<void> addHomework(HomeWork homework) async {
@@ -215,13 +213,18 @@ class HomeworkController extends GetxController {
     await _dbHelper.deleteHomeWork(id);
     await fetchHomeworks();
   }
+
+  void _setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 }
 
 class HomeWork {
   final int? id;
   final String title;
   final String description;
- 
+
   HomeWork({this.id, required this.title, required this.description});
 
   factory HomeWork.fromMap(Map<String, dynamic> map) {
@@ -229,7 +232,7 @@ class HomeWork {
       id: map['id'],
       title: map['title'],
       description: map['description'],
-     );
+    );
   }
   Map<String, dynamic> toMap() {
     return {

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class Lec9 extends StatelessWidget {
   static const String path = '/lec9';
@@ -9,43 +9,42 @@ class Lec9 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(StudentController());
-    return GetBuilder<StudentController>(
-      builder: (ctr) {
-        return Scaffold(
-          appBar: AppBar(
-            actions: [IconButton(onPressed: ()async{
-            await ctr.addStudent('New Student', 20);
-            
-            }, icon: Icon(Icons.add))],
-          ),
-            body: ListView.builder(
-                itemCount: ctr.students.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(ctr.students[index]['name'].toString()),
-                    subtitle: Text(ctr.students[index]['age'].toString()),
-                  );
-                }));
-      },
-    );
+    return ChangeNotifierProvider(
+        create: (context) => StudentController(),
+        builder: (context, child) => Consumer<StudentController>(
+              builder: (context, ctr, child) => Scaffold(
+                  appBar: AppBar(
+                    actions: [
+                      IconButton(
+                          onPressed: () async {
+                            await ctr.addStudent('New Student', 20);
+                          },
+                          icon: Icon(Icons.add))
+                    ],
+                  ),
+                  body: ListView.builder(
+                      itemCount: ctr.students.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(ctr.students[index]['name'].toString()),
+                          subtitle: Text(ctr.students[index]['age'].toString()),
+                        );
+                      })),
+            ));
   }
 }
 
-class StudentController extends GetxController {
-  @override
-  void onInit() {
+class StudentController extends ChangeNotifier {
+  StudentController() {
     getAllStudents();
-    super.onInit();
   }
-
   List students = [];
   getAllStudents() async {
     final result = await ApiHelper.get('http://10.0.2.2/api_lecture/students/getall.php');
     if (result != null) {
       students = result.data;
     }
-    update();
+    notifyListeners();
   }
 
   addStudent(String name, int age) async {

@@ -10,8 +10,7 @@ import 'package:componentkit/lec7.dart';
 import 'package:componentkit/lec8.dart';
 import 'package:componentkit/lec9.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+ 
 import 'lec8part2.dart';
 
 void main() async {
@@ -21,7 +20,7 @@ void main() async {
   runApp(
     SafeArea(
       top: false,
-      child: GetMaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
           '/': (context) => HomeScreen(),
