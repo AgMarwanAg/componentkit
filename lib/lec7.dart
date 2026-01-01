@@ -11,65 +11,59 @@ class Lec7 extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomeworkProvider(),
-      builder: (context, child) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Homeworks', style: TextStyle(fontWeight: FontWeight.bold)),
-          centerTitle: true,
-        ),
-        body: Consumer<HomeworkProvider>(
-          builder: (context, controller,child)  {
-            if (controller.isLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            if (controller.homeworks.isEmpty) {
-              return const Center(
-                child: Text('No homeworks yet. Add one!', style: TextStyle(fontSize: 18, color: Colors.grey)),
-              );
-            }
-
-            return ListView.builder(
-              padding: const EdgeInsets.all(8.0),
-              itemCount: controller.homeworks.length,
-              itemBuilder: (context, index) {
-                final homework = controller.homeworks[index];
-                return Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                    title: Text(homework.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const SizedBox(height: 4), Text(homework.description), const SizedBox(height: 8)]),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.amber),
-                          onPressed: () => _showHomeworkDialog(context, homework: homework),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.redAccent),
-                          onPressed: () => controller.deleteHomework(homework.id!),
-                        ),
-                      ],
+      builder: (context, child) => Consumer<HomeworkProvider>(
+        builder: (context, controller, child) => Scaffold(
+          appBar: AppBar(
+            title: const Text('Homeworks', style: TextStyle(fontWeight: FontWeight.bold)),
+            centerTitle: true,
+          ),
+          body: controller.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : controller.homeworks.isEmpty
+                  ? const Center(
+                      child: Text('No homeworks yet. Add one!', style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(8.0),
+                      itemCount: controller.homeworks.length,
+                      itemBuilder: (context, index) {
+                        final homework = controller.homeworks[index];
+                        return Card(
+                          elevation: 4,
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                            title: Text(homework.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const SizedBox(height: 4), Text(homework.description), const SizedBox(height: 8)]),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.edit, color: Colors.amber),
+                                  onPressed: () => _showHomeworkDialog(context, controller, homework: homework),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.delete, color: Colors.redAccent),
+                                  onPressed: () => controller.deleteHomework(homework.id!),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                );
-              },
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _showHomeworkDialog(context),
-          tooltip: 'Add Homework',
-          child: const Icon(Icons.add),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _showHomeworkDialog(context, controller),
+            tooltip: 'Add Homework',
+            child: const Icon(Icons.add),
+          ),
         ),
       ),
     );
   }
 
-  void _showHomeworkDialog(BuildContext context, {HomeWork? homework}) {
+  void _showHomeworkDialog(BuildContext context, HomeworkProvider controller, {HomeWork? homework}) {
     final titleController = TextEditingController(text: homework?.title ?? '');
     final descriptionController = TextEditingController(text: homework?.description ?? '');
     final formKey = GlobalKey<FormState>();
@@ -108,12 +102,11 @@ class Lec7 extends StatelessWidget {
                     title: titleController.text,
                     description: descriptionController.text,
                   );
-//TODO
-                  // if (homework == null) {
-                  //   controller.addHomework(newHomework);
-                  // } else {
-                  //   controller.updateHomework(newHomework);
-                  // }
+                  if (homework == null) {
+                    controller.addHomework(newHomework);
+                  } else {
+                    controller.updateHomework(newHomework);
+                  }
                   Navigator.pop(context);
                 }
               },
